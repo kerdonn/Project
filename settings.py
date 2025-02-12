@@ -7,3 +7,6 @@ class Settings:
         self.bg_color = (0, 0, 139)
         self.caption = "Bubble Blaster"
         
+        self.bubble_min_r = 10
+        self.bubble_max_r = 50
+        

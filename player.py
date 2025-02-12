@@ -33,6 +33,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.left = 0
         if self.moving_right and self.rect.right > self.screen_rect.right:
             self.rect.right = self.screen_rect.right
+        if self.moving_up and self.rect.top <= 0:
+            self.rect.top = 0
         if self.moving_down and self.rect.bottom >= self.screen_rect.bottom:
             self.rect.bottom = self.screen_rect.bottom
 
