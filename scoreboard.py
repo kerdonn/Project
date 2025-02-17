@@ -10,10 +10,10 @@ class Scoreboard():
         self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont(None, 46)
 
-        # Alustame skoori kuvamist
+
         self.prepare_score()
         self.prepare_level()
-        self.prepare_high_score()  # Lisame rekordi ettevalmistamise
+        self.prepare_high_score() 
 
     def prepare_score(self):
         score_str = str(self.stats.score)
@@ -29,7 +29,6 @@ class Scoreboard():
         self.level_rect.right = self.score_image_rect.right
         self.level_rect.top = self.score_image_rect.bottom + 10
 
-    # Lisame funktsiooni rekordi kuvamiseks
     def prepare_high_score(self):
         high_score_str = str(self.stats.high_score)
         self.high_score_image = self.font.render(high_score_str, True, self.text_color, self.game_settings.bg_color)
@@ -38,9 +37,8 @@ class Scoreboard():
         self.high_score_rect.top = 20
 
     def draw_score(self):
-        self.prepare_score()  # Uuendab ja joonistab skoori
+        self.prepare_score()
         self.screen.blit(self.score_image, self.score_image_rect)
         self.screen.blit(self.level_image, self.level_rect)
         
-        # Joonistame kõrgeima skoori
         self.screen.blit(self.high_score_image, self.high_score_rect)

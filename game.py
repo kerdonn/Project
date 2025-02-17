@@ -27,7 +27,7 @@ def run_game():
     
     bubbles = pygame.sprite.Group()
     
-    # Set the timer for adding bubbles
+   
     gf.setup_timers()
 
     while True:
