@@ -1,15 +1,14 @@
-import sys
 import pygame
-from bubble import Bubble
-from scoreboard import Scoreboard
+import sys
+import random
+from bubble import Bubble 
 
-pygame.init()
 ADDBUBBLE = pygame.USEREVENT + 1
-pygame.time.set_timer(ADDBUBBLE, 250)
 
 def check_events(game_settings, screen, player, bubbles, stats, play_button):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
@@ -33,24 +32,26 @@ def check_events(game_settings, screen, player, bubbles, stats, play_button):
             create_bubble(game_settings, screen, bubbles)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(stats, play_button, mouse_x, mouse_y, bubbles)
-            
+            check_play_button(stats, play_button, mouse_x, mouse_y)
+
 def check_play_button(stats, play_button, mouse_x, mouse_y):
     if play_button.rect.collidepoint(mouse_x, mouse_y):
         stats.game_active = True
-
 
 def create_bubble(game_settings, screen, bubbles):
     new_bubble = Bubble(screen, game_settings)
     bubbles.add(new_bubble)
 
-def update_bubbles(player, bubbles):
-    hitted_bubble = pygame.sprite.spritecollideany(player, bubbles)
-    if hitted_bubble != None:
-        stats.score += hitted_bubble.bubble_radius
-        sb.prepare_score()
-        hitted_bubble.kill()
-                
+def update_bubbles(player, bubbles, stats, sb, gm_settings):
+    for bubble in bubbles:
+        if bubble.rect.colliderect(player.rect):
+            bubbles.remove(bubble)
+            stats.score += bubble.bubble_radius 
+            if (int(stats.score / gm_settings.bonus_score)) > stats.bonus:
+                stats.level += 1
+                sb.prepare_level()
+                stats.bonus += 1
+                bubble.kill() 
 
 def update_screen(game_settings, screen, player, bubbles, clock, stats, play_button, sb):
     screen.fill(game_settings.bg_color)
@@ -68,4 +69,6 @@ def update_screen(game_settings, screen, player, bubbles, clock, stats, play_but
         play_button.draw_button()
     
     pygame.display.flip()
-    
+
+def setup_timers():
+    pygame.time.set_timer(ADDBUBBLE, 250)

@@ -2,10 +2,10 @@ import pygame
 import random
 
 class Bubble(pygame.sprite.Sprite):
-    """Class for bubble object"""
+    
     
     def __init__(self, screen, game_settings):
-        super(Bubble, self). __init__()
+        super(Bubble, self).__init__()
         
         self.screen = screen
         self.screen_rect = screen.get_rect()
@@ -36,9 +36,8 @@ class Bubble(pygame.sprite.Sprite):
         
     def blit_me(self):
         self.screen.blit(self.bubble, self.rect)
+    
     def update(self):
         self.rect.move_ip(-self.speed, 0)
         if self.rect.right < 0:
             self.kill()
-        
-        

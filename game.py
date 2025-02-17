@@ -8,11 +8,9 @@ from game_stats import GameStats
 import game_functions as gf
 
 
-
 def run_game():
     pygame.init()
     gm_settings = Settings()
-
 
     screen = pygame.display.set_mode([gm_settings.screen_width, gm_settings.screen_height])
     pygame.display.set_caption(gm_settings.caption)
@@ -29,14 +27,19 @@ def run_game():
     
     bubbles = pygame.sprite.Group()
     
+    # Set the timer for adding bubbles
+    gf.setup_timers()
+
     while True:
         gf.check_events(gm_settings, screen, player, bubbles, stats, play_button)
         if stats.game_active:
             player.update()
-            gf.update_bubbles(player, bubbles, stats)
+            gf.update_bubbles(player, bubbles, stats, sb, gm_settings)  # Pass sb and gm_settings
             bubbles.update()
         else:
             bubbles.empty()
         gf.update_screen(gm_settings, screen, player, bubbles, clock, stats, play_button, sb)
-    
+
+
+
 run_game()
