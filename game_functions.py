@@ -39,14 +39,11 @@ def check_play_button(stats, play_button, mouse_x, mouse_y):
         stats.game_active = True
 
 def create_bubble(game_settings, screen, bubbles):
-    
-    new_bubble = Bubble(screen, game_settings) 
+    new_bubble = Bubble(screen, game_settings)
     bubbles.add(new_bubble)
 
 def update_bubbles(player, bubbles, stats, sb, gm_settings):
     for bubble in bubbles:
-        bubble.rect.x += gm_settings.bubble_speed
-        
         if bubble.rect.colliderect(player.rect):
             bubbles.remove(bubble)
             stats.score += bubble.bubble_radius 
@@ -54,10 +51,8 @@ def update_bubbles(player, bubbles, stats, sb, gm_settings):
                 stats.level += 1
                 sb.prepare_level()
                 stats.bonus += 1
-                gm_settings.bubble_speed += 0.5
-                bubble.kill()
-            
-            stats.check_high_score() 
+                bubble.kill() 
+
 def update_screen(game_settings, screen, player, bubbles, clock, stats, play_button, sb):
     screen.fill(game_settings.bg_color)
     
