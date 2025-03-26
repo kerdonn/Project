@@ -10,13 +10,13 @@ class Scoreboard():
         self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont(None, 46)
 
-        # Initialize score immediately
+     
         self.prepare_score()
         
         self.prepare_level()
 
     def prepare_score(self):
-        score_str = str(self.stats.score)  # Make sure score is always a valid string
+        score_str = str(self.stats.score)
         self.score_image = self.font.render(score_str, True, self.text_color, self.game_settings.bg_color)
         self.score_image_rect = self.score_image.get_rect()
         self.score_image_rect.right = self.screen_rect.right - 20
@@ -33,6 +33,6 @@ class Scoreboard():
     
     
     def draw_score(self):
-        self.prepare_score()  # Refresh the score before drawing
+        self.prepare_score()
         self.screen.blit(self.score_image, self.score_image_rect)
         self.screen.blit(self.level_image, self.level_rect)
